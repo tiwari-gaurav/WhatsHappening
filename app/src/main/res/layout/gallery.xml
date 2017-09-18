@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/banner_margin">
+
+        <LinearLayout
+            android:id="@+id/category_entertainmnet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entertainment"
+                android:textColor="@color/red"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/entertainment_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:orientation="horizontal"
+            app:reverseLayout="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/category_entertainmnet">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <android.support.v4.widget.Space
+            android:id="@+id/div1"
+            android:layout_below="@+id/entertainment_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:id="@+id/category_sports"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_below="@+id/div1"
+            android:layout_marginTop="@dimen/banner_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sports"
+                android:textColor="@color/red"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sports_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/category_sports"
+            android:layout_marginTop="@dimen/banner_margin"
+            android:scrollbars="none"
+            android:orientation="horizontal"
+            app:reverseLayout="true">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v4.widget.Space
+            android:id="@+id/div2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/sports_gallery"/>
+
+        <LinearLayout
+            android:id="@+id/category_technology"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_below="@+id/div2"
+            android:layout_marginTop="@dimen/banner_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Technology"
+                android:textColor="@color/red"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/technology_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/category_technology"
+            android:layout_marginTop="@dimen/banner_margin"
+            android:scrollbars="none"
+            android:orientation="horizontal"
+            app:reverseLayout="true"
+            android:layout_marginBottom="@dimen/banner_margin"/>
+
+    </RelativeLayout>
+
+</ScrollView>
+</RelativeLayout>

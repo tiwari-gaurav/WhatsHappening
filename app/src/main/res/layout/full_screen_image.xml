@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColorSecondary">
+
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarFull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolBarStyle"
+        android:background="@color/black"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/imageFull"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/toolbarFull"
+       />
+
+
+        <TextView
+            android:id="@+id/imageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:layout_margin="@dimen/banner_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/banner_margin"
+            />
+
+    <TextView
+        android:id="@+id/imageDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:layout_margin="@dimen/banner_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/imageText"
+        />
+
+
+
+</RelativeLayout>
