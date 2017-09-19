@@ -32,6 +32,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -121,7 +123,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup(view, news.get(holder.getAdapterPosition()).getUrl());
+                showPopup(view, news.get(holder.getAdapterPosition()).getUrl(),news.get(holder.getAdapterPosition()).getTitle());
             }
         });
     }
@@ -132,7 +134,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
 
-    private void showPopup(final View view, final String url) {
+    private void showPopup(final View view, final String url, final String title) {
         PopupMenu popup = new PopupMenu(view.getContext(), view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.option_menu, popup.getMenu());
@@ -148,7 +150,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                         view.getContext().startActivity(Intent.createChooser(intent, "share"));
                         break;
                     case R.id.save:
-                        writeResponseBodyToDisk(url, view.getContext(), view);
+                        writeResponseBodyToDisk(url, view.getContext(), view,  title);
                         break;
                 }
                 return true;
@@ -157,7 +159,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         popup.show();
     }
 
-    private void writeResponseBodyToDisk(String url, Context context, final View view) {
+    private void writeResponseBodyToDisk(String url, Context context, final View view, final String title) {
 
         Ion.with(context).load(url).asString()
 
@@ -167,7 +169,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                         // do something with your bitmap
                         Log.d("htmlBitmap", result.toString());
                         // checkExternalMedia();
-                        writeToSDFile(result.toString(), view);
+                        writeToSDFile(result.toString(), view,title);
 
                     }
                 });
@@ -180,13 +182,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
      * a FileNotFound Exception because you won't have write permission.
      */
 
-    private void writeToSDFile(String data, View view) {
+    private void writeToSDFile(String data, View view, String title) {
 
         // Find the root of the external storage.
         // See http://developer.android.com/guide/topics/data/data-  storage.html#filesExternal
 
         File root = context.getExternalFilesDir(null);
-        String FileName = "WhatsHappening" + ".html";
+        String FileName = title + ".html";
         File dir = new File(root.getAbsolutePath() + "/download");
         dir.mkdirs();
         File file = new File(dir, FileName);
@@ -199,6 +201,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             Log.e("fileSaved", "File Save : " + file.getPath());
 
             showSnackBar(view, dir);
+            deleteFiles(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.i("FileNotFound", "******* File not found. Did you" +
@@ -207,6 +210,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             e.printStackTrace();
         }
 
+    }
+
+    private void deleteFiles(File file) {
+
+        if(file.exists()){
+            Calendar time = Calendar.getInstance();
+            time.add(Calendar.DAY_OF_YEAR,-1);
+            //I store the required attributes here and delete them
+            Date lastModified = new Date(file.lastModified());
+            if(lastModified.before(time.getTime()))
+            {
+                //file is older than a week
+                file.delete();
+            }
+
+        }
     }
 
     private void showSnackBar(View view, final File dir) {
