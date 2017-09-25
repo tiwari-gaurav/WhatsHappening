@@ -14,18 +14,19 @@
             android:id="@+id/title1_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/banner_margin">
+            android:layout_marginTop="@dimen/banner_margin"
+            android:background="@color/colorGray">
 
             <TextView
                 android:id="@+id/topStories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Top Stories"
+                android:textAllCaps="true"
                 android:padding="5dp"
                 android:textColor="@color/level_details_session_name_color"
                 android:textSize="16dp"
-                android:layout_marginLeft="@dimen/banner_margin"
-                android:textStyle="bold"/>
+                android:layout_marginLeft="@dimen/banner_margin" />
 
         </LinearLayout>
 
@@ -51,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/news_recycle"
-        android:layout_marginTop="@dimen/banner_margin">
+        android:background="@color/colorGray">
 
         <TextView
             android:id="@+id/market_title"
@@ -61,8 +62,8 @@
             android:padding="5dp"
             android:textColor="@color/level_details_session_name_color"
             android:textSize="16dp"
-            android:layout_marginLeft="@dimen/banner_margin"
-            android:textStyle="bold"/>
+            android:textAllCaps="true"
+            android:layout_marginLeft="@dimen/banner_margin" />
 
     </LinearLayout>
 
@@ -77,8 +78,7 @@
         android:id="@+id/market_recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/divider2"
-        android:layout_marginTop="@dimen/banner_margin">
+        android:layout_below="@+id/divider2">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/market_recycle"
-        android:layout_marginTop="@dimen/banner_margin">
+        android:background="@color/colorGray">
 
         <TextView
             android:id="@+id/lifestyle_title"
@@ -97,8 +97,7 @@
             android:padding="5dp"
             android:textColor="@color/level_details_session_name_color"
             android:textSize="16dp"
-            android:layout_marginLeft="@dimen/banner_margin"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="@dimen/banner_margin" />
 
     </LinearLayout>
 
