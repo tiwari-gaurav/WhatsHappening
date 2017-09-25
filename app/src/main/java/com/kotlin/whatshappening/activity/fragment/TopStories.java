@@ -42,7 +42,7 @@ public class TopStories extends Fragment {
     private List<NewsResponse> newsResponse;
 
    private List<News> news;
-    private RecyclerView recyclerView;
+    private RecyclerView mNewsRecyclerView, mMarketRecyclerView, mlifestyleRecyclerView;
 
     public TopStories(){
 
@@ -63,17 +63,25 @@ public class TopStories extends Fragment {
 
         }
 
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.news_recycle);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mNewsRecyclerView = (RecyclerView)rootView.findViewById(R.id.news_recycle);
+        mMarketRecyclerView = (RecyclerView)rootView.findViewById(R.id.market_recycle);
+        mlifestyleRecyclerView = (RecyclerView)rootView.findViewById(R.id.lifestyle_recycle);
 
-        fetchNews(recyclerView);
+        mNewsRecyclerView.setNestedScrollingEnabled(false);
+        mMarketRecyclerView.setNestedScrollingEnabled(false);
+        mlifestyleRecyclerView.setNestedScrollingEnabled(false);
+        mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mMarketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mlifestyleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        fetchNews(mNewsRecyclerView,mMarketRecyclerView,mlifestyleRecyclerView);
 
         return rootView;
     }
 
-    private void fetchNews(final RecyclerView rv) {
+    private void fetchNews(final RecyclerView mNewsRecyclerView, final RecyclerView mMarketRecyclerView, final RecyclerView mlifestyleRecyclerView) {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonElement> call = apiService.getNews("google-news", "top", ParamConstants.API_KEY);
+        Call<JsonElement> call = apiService.getNews("the-times-of-india", "top", ParamConstants.API_KEY);
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -82,8 +90,8 @@ public class TopStories extends Fragment {
                 Type listType = new TypeToken<List<News>>() {
                 }.getType();
                 news = new Gson().fromJson(object.getAsJsonObject().getAsJsonArray("articles"), listType);
-                rv.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
-                recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+                mNewsRecyclerView.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
+                TopStories.this.mNewsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
             }
 
             @Override
@@ -92,6 +100,42 @@ public class TopStories extends Fragment {
             }
         });
 
+
+        Call<JsonElement> market = apiService.getNews("cnn","top",ParamConstants.API_KEY);
+        market.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                JsonElement object = response.body();
+                Type listType = new TypeToken<List<News>>() {
+                }.getType();
+                news = new Gson().fromJson(object.getAsJsonObject().getAsJsonArray("articles"), listType);
+                mMarketRecyclerView.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
+                TopStories.this.mMarketRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
+            }
+        });
+
+        Call<JsonElement> lifestyle = apiService.getNews("mtv-news","top",ParamConstants.API_KEY);
+        lifestyle.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                JsonElement object = response.body();
+                Type listType = new TypeToken<List<News>>() {
+                }.getType();
+                news = new Gson().fromJson(object.getAsJsonObject().getAsJsonArray("articles"), listType);
+                mlifestyleRecyclerView.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
+                TopStories.this.mlifestyleRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
+            }
+        });
 
         Call<JsonElement> source = apiService.getSources("", "", "");
         source.enqueue(new Callback<JsonElement>() {

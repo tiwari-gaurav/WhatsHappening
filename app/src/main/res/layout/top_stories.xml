@@ -2,12 +2,124 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/title1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/banner_margin">
+
+            <TextView
+                android:id="@+id/topStories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Top Stories"
+                android:padding="5dp"
+                android:textColor="@color/level_details_session_name_color"
+                android:textSize="16dp"
+                android:layout_marginLeft="@dimen/banner_margin"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/feedback_border"
+            android:layout_below="@+id/title1_layout"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/news_recycle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider1"
+        android:layout_marginTop="@dimen/banner_margin"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/title2_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/news_recycle"
+        android:layout_marginTop="@dimen/banner_margin">
+
+        <TextView
+            android:id="@+id/market_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Market"
+            android:padding="5dp"
+            android:textColor="@color/level_details_session_name_color"
+            android:textSize="16dp"
+            android:layout_marginLeft="@dimen/banner_margin"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/feedback_border"
+            android:layout_below="@+id/title2_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/market_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider2"
+        android:layout_marginTop="@dimen/banner_margin">
 
     </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/title3_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/market_recycle"
+        android:layout_marginTop="@dimen/banner_margin">
+
+        <TextView
+            android:id="@+id/lifestyle_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TV"
+            android:padding="5dp"
+            android:textColor="@color/level_details_session_name_color"
+            android:textSize="16dp"
+            android:layout_marginLeft="@dimen/banner_margin"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/feedback_border"
+            android:layout_below="@+id/title3_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lifestyle_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider3"
+        android:layout_marginTop="@dimen/banner_margin">
+
+    </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
