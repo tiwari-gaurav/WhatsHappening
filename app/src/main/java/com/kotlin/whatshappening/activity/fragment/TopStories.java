@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -43,6 +44,7 @@ public class TopStories extends Fragment {
 
    private List<News> news;
     private RecyclerView mNewsRecyclerView, mMarketRecyclerView, mlifestyleRecyclerView;
+    private LinearLayout mTitleLayout1, mTitleLayout2, mTitleLayout3;
 
     public TopStories(){
 
@@ -63,9 +65,9 @@ public class TopStories extends Fragment {
 
         }
 
-        mNewsRecyclerView = (RecyclerView)rootView.findViewById(R.id.news_recycle);
-        mMarketRecyclerView = (RecyclerView)rootView.findViewById(R.id.market_recycle);
-        mlifestyleRecyclerView = (RecyclerView)rootView.findViewById(R.id.lifestyle_recycle);
+
+        initializeViews(rootView);
+
 
         mNewsRecyclerView.setNestedScrollingEnabled(false);
         mMarketRecyclerView.setNestedScrollingEnabled(false);
@@ -77,6 +79,15 @@ public class TopStories extends Fragment {
         fetchNews(mNewsRecyclerView,mMarketRecyclerView,mlifestyleRecyclerView);
 
         return rootView;
+    }
+
+    private void initializeViews(View rootView) {
+        mNewsRecyclerView = (RecyclerView)rootView.findViewById(R.id.news_recycle);
+        mMarketRecyclerView = (RecyclerView)rootView.findViewById(R.id.market_recycle);
+        mlifestyleRecyclerView = (RecyclerView)rootView.findViewById(R.id.lifestyle_recycle);
+        mTitleLayout1 = (LinearLayout)rootView.findViewById(R.id.title1_layout);
+        mTitleLayout2 = (LinearLayout)rootView.findViewById(R.id.title2_layout);
+        mTitleLayout3 = (LinearLayout)rootView.findViewById(R.id.title3_layout);
     }
 
     private void fetchNews(final RecyclerView mNewsRecyclerView, final RecyclerView mMarketRecyclerView, final RecyclerView mlifestyleRecyclerView) {
@@ -92,6 +103,7 @@ public class TopStories extends Fragment {
                 news = new Gson().fromJson(object.getAsJsonObject().getAsJsonArray("articles"), listType);
                 mNewsRecyclerView.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
                 TopStories.this.mNewsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+                mTitleLayout1.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -111,6 +123,7 @@ public class TopStories extends Fragment {
                 news = new Gson().fromJson(object.getAsJsonObject().getAsJsonArray("articles"), listType);
                 mMarketRecyclerView.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
                 TopStories.this.mMarketRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+                mTitleLayout2.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -129,6 +142,7 @@ public class TopStories extends Fragment {
                 news = new Gson().fromJson(object.getAsJsonObject().getAsJsonArray("articles"), listType);
                 mlifestyleRecyclerView.setAdapter(new NewsAdapter(news, R.layout.news_list_item, getContext()));
                 TopStories.this.mlifestyleRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+                mTitleLayout3.setVisibility(View.VISIBLE);
             }
 
             @Override

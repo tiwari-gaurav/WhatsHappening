@@ -1,11 +1,15 @@
 package com.kotlin.whatshappening.activity.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -96,8 +100,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         // loading album cover using Glide library
         Glide.with(context).load(news.get(position).getUrlToImage()).into(holder.newsImage);
 
+
 // apply click events
         applyClickEvents(holder, position);
+
+    }
+
+    private void setupWindowAnimations() {
+        Slide slide = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slide = new Slide();
+            slide.setDuration(1000);
+            ((Activity) context).getWindow().setExitTransition(slide);
+        }
+
 
     }
 
@@ -108,6 +124,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             @Override
             public void onClick(View view) {
                 //Toast.makeText(context, news.get(position).getUrl() + " is selected!", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(context, NewsDescriptionActivity.class);
                 intent.putExtra("url", news.get(position).getUrl());
                 intent.putExtra("banner", news.get(position).getUrlToImage());
@@ -116,7 +133,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 intent.putExtra("title", news.get(position).getTitle());
                 intent.putExtra("release_date", news.get(position).getRelease_date());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+                View sharedView = holder.newsImage;
+                String transitionName = context.getString(R.string.blue_name);
+
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation((Activity) context, sharedView, transitionName);
+                context.startActivity(intent, transitionActivityOptions.toBundle());
+               // context.startActivity(intent);
             }
         });
 

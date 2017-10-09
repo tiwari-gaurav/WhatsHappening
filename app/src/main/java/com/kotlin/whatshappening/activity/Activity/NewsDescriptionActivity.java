@@ -1,12 +1,15 @@
 package com.kotlin.whatshappening.activity.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.transition.Fade;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +36,19 @@ public class NewsDescriptionActivity extends AppCompatActivity {
         setToolBar();
         setClickEvents();
         setTextToLayout();
+        setupWindowAnimations();
     }
 
+
+    private void setupWindowAnimations() {
+        Slide slide = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            slide = new Slide();
+            slide.setDuration(1000);
+            getWindow().setEnterTransition(slide);
+        }
+    }
     private void setTextToLayout() {
         Glide.with(this).load(getIntent().getStringExtra("banner")).into(mNewsBanner);
         mNewsDescription.setText(getIntent().getStringExtra("description"));
@@ -102,5 +116,11 @@ public class NewsDescriptionActivity extends AppCompatActivity {
         mAuthor =(TextView)findViewById(R.id.author);
         mReleaseDate =(TextView)findViewById(R.id.release_date);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
