@@ -138,6 +138,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
                 ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation((Activity) context, sharedView, transitionName);
                 context.startActivity(intent, transitionActivityOptions.toBundle());
+
                // context.startActivity(intent);
             }
         });
